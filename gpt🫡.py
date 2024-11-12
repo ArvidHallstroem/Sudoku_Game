@@ -1,3 +1,5 @@
+# asked chatgpt to do sudoku example lol
+
 import tkinter as tk
 from tkinter import messagebox
 

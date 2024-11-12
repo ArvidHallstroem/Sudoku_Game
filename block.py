@@ -1,10 +1,12 @@
+# Also 4 x 4 some stuff I'm experimenting with
+# DON'T TOUCH!!!
 from turtle import *
 class Block(Turtle):
     def __init__(self):
         super().__init__()
         self.y = [-40, -20, 0]
         self.shape("square")
-        self.shapesize(stretch_wid=1, stretch_len=1)
+        self.shapesize(5)
         self.penup()
 
         self.goto(-155, 0)
