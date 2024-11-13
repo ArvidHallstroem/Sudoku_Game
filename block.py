@@ -2,14 +2,12 @@
 # DON'T TOUCH!!!
 from turtle import *
 class Block(Turtle):
-    def __init__(self):
+    def __init__(self,cell):
         super().__init__()
-        self.y = [-40, -20, 0]
         self.shape("square")
-        self.shapesize(5)
+        size = cell/20
+        self.shapesize(size)
         self.penup()
-
-        self.goto(-155, 0)
         self.moving_direction = 0
         self.ondrag(self.drag)
 
