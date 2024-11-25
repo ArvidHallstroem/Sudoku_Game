@@ -1,33 +1,31 @@
-# Starting on the 4x4 🫠
-from turtle import *
+# Our main game interface
+import turtle
+import tkinter as tk
 from draw import *
 from block import Block
+# from tkinter import *
+from tkinter import ttk
+from canv import canvas, window
+scr = turtle.TurtleScreen(canvas)
+t = turtle.RawTurtle(scr)
+scr.tracer(0)
+t.speed(0)
 
-screen = Screen()
-screen.bgcolor("white")
-screen.setup(500, 600)
-screen.title("Sudoku Game")
-screen.colormode(255)
-screen.tracer(0)
-# locs = [[(-155, 220), (-55, 220), (45, 220), (145, 220)], [(-155, 120), (-55, 120), (45, 120), (145, 120)],
-# [(-155, 20), (-55, 20), (45, 20), (145, 20)], [(-155, -80), (-55, -80), (45, -80), (145, -80)]]
+frm = ttk.Frame(window, width=1000, height=1000, padding=10)
+frm.grid(sticky='nsew')
+ttk.Label(frm, text="Hello World!").grid(row=1, column=0, sticky='nsew')
+ttk.Button(frm, text="Quit", command=window.destroy).grid(row=1, column=1, sticky='nsew')
 
-# pantry = [(-155, -210), (-55, -210), (45, -210), (145, -210)]
-
+draw_board(WIDTH, ROW, t)
 blocks, tempblocks = [], []
 colors = ["red", "orange","yellow", "green","cyan", "blue", "purple","magenta", "pink"]
 for x in range(ROW):
     for y in range(ROW):
-        temp = (Block(WIDTH/ROW))
+        temp = Block(WIDTH/ROW)
         temp.color(colors[x])
         temp.goto(pantry[x])
+        temp.old_pos = pantry[x]
         tempblocks.append(temp)
     blocks.append(tempblocks)
-
-draw_board(WIDTH, ROW)
-
-
-screen.tracer(1)
-while True:
-    screen.update()
-screen.mainloop()
+scr.tracer(1)
+window.mainloop()

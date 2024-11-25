@@ -1,37 +1,54 @@
 # function to draw the Sudoku can draw any rows.
-from turtle import *
+from turtle import Turtle
 
-ROW = 4
+ROW = 9
 WIDTH = 400
 cellsize = WIDTH/ROW
-line = Turtle()
-line.penup()
-line.hideturtle()
-pantry, locs = [], []
-X, y = -205+cellsize/2, -160-cellsize/2
+X_CONST = -5 - WIDTH / 2
+if ROW % 2 == 0:
+    Y_CONST = 270
+    y_pantry = -160
+else:
+    Y_CONST = 270 - cellsize
+    y_pantry = -180
+
+pantry = []
+x, y = (X_CONST + cellsize / 2, y_pantry - cellsize / 2)
 for i in range(ROW):
-    pantry.append((X, y))
-    X += cellsize
-y = 220
+    pantry.append((x, y))
+    x += cellsize
+
+locs = []
+y = Y_CONST + cellsize / 2
 for a in range(ROW):
     temp = []
-    x = X
+    x = X_CONST + cellsize / 2
     for b in range(ROW):
         temp.append((x, y))
         x += cellsize
     y -= cellsize
     locs.append(temp)
-def draw_board(width, rows):
-    draw_cells(width, rows)
-    draw_pantry(width, rows)
-def draw_cells(width, rows):
+
+cell_occupied = []
+for y in range(ROW):
+    temp_cell = []
+    for x in range(ROW):
+        temp_cell.append(0)
+    cell_occupied.append(temp_cell)
+
+def draw_board(width, rows, line):
+    line.penup()
+    line.hideturtle()
+    draw_cells(width, rows, line)
+    draw_pantry(width, rows, line)
+def draw_cells(width, rows, line):
     # if rows == 4 or rows == 9:
         # line.color(180, 180, 180)
     cell = width / rows
     if rows % 2 == 0:
-        line.goto(-205, 270)
+        line.goto(X_CONST, Y_CONST)
     else:
-        line.goto(-205, 270 - cell)
+        line.goto(X_CONST, 270 - cell)
     line.pendown()
     for i in range(int(rows / 2)):
         line.forward(width)
@@ -64,16 +81,16 @@ def draw_cells(width, rows):
     line.setheading(0)
     if rows == 4:
         line.width(3)
-        draw_cells(width, 2)
+        draw_cells(width, 2, line)
     elif rows == 9:
         line.width(3)
-        draw_cells(width, 3)
+        draw_cells(width, 3, line)
     line.penup()
 
 
-def draw_pantry(width, rows):
+def draw_pantry(width, rows, line):
     line.width(1)
-    line.goto(-205, -160)
+    line.goto(X_CONST, y_pantry)
     line.pendown()
     cell = width/rows
     for i in range(int(rows/2)):
@@ -86,7 +103,7 @@ def draw_pantry(width, rows):
         line.right(90)
     line.color("black")
     line.penup()
-    line.goto(-205, -160)
+    line.goto(X_CONST, y_pantry)
     line.pendown()
     line.width(3)
     for i in range(2):
