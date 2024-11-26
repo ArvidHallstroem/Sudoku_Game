@@ -1,31 +1,47 @@
-# Our main game interface
-import turtle
 import tkinter as tk
-from draw import *
-from block import Block
-# from tkinter import *
-from tkinter import ttk
-from canv import canvas, window
-scr = turtle.TurtleScreen(canvas)
-t = turtle.RawTurtle(scr)
-scr.tracer(0)
-t.speed(0)
+from tkinter import messagebox
+from functions import *
 
-frm = ttk.Frame(window, width=1000, height=1000, padding=10)
-frm.grid(sticky='nsew')
-ttk.Label(frm, text="Hello World!").grid(row=1, column=0, sticky='nsew')
-ttk.Button(frm, text="Quit", command=window.destroy).grid(row=1, column=1, sticky='nsew')
+# Initialize the main window
+from canv import root
 
-draw_board(WIDTH, ROW, t)
-blocks, tempblocks = [], []
-colors = ["red", "orange","yellow", "green","cyan", "blue", "purple","magenta", "pink"]
-for x in range(ROW):
-    for y in range(ROW):
-        temp = Block(WIDTH/ROW)
-        temp.color(colors[x])
-        temp.goto(pantry[x])
-        temp.old_pos = pantry[x]
-        tempblocks.append(temp)
-    blocks.append(tempblocks)
-scr.tracer(1)
-window.mainloop()
+# Title Label
+title_label = tk.Label(
+    root,
+    text="Welcome to Sudoku!",
+    font=("Arial",20,"bold"),
+    bg="#f0f8ff",
+    fg="#333"
+)
+title_label.pack(pady=20)
+
+# Normal Mode Button
+normal_button = tk.Button(
+    root,
+    text="Normal Mode",
+    font=("Arial",14,"bold"),
+    bg="#add8e6",
+    fg="#333",
+    activebackground="#87ceeb",
+    activeforeground="#fff",
+    width=15,
+    height=2,
+    command=open_normal_mode
+)
+normal_button.pack(pady=10)
+
+# Kid's Mode Button
+kids_button = tk.Button(
+    root,
+    text="Kid's Mode",
+    font=("Arial",14,"bold"),
+    bg="#ffcccb",
+    fg="#333",
+    width=15,
+    height=2,
+    command=open_kids_mode
+)
+kids_button.pack(pady=10)
+
+# Run the application
+root.mainloop()
